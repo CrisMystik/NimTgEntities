@@ -3,13 +3,6 @@ import std / unicode
 import nim_tg_entities / private / data
 import nim_tg_entities / private / types
 
-#[
-  #TODO:
-  * finire prima funzione
-  * seconda funzione - parseText
-  * util fromParseSyntax (inverso di toParseSyntax)
-]#
-
 proc parseFormatting*(text: string, pm: ParseMode): seq[Entity] =
   discard
 
@@ -26,7 +19,7 @@ proc parseEntities*(text: string, entities: openArray[Entity], pm: ParseMode): s
   for i, c in chars:
     for o in open:
       if o notin c:
-        result.add(toParseSyntax(e, true, pm))
+        result.add(toParseSyntax(o, true, pm))
         open.del(e)
     for e in c:
       if e notin open:
@@ -47,3 +40,9 @@ when isMainModule:
     Entity(offset: 1, length: 1)
   ], pmHtml)
 #endregion
+
+#[
+var a: seq[Entity]
+let b = Entity(offset: 2, length: 1, kind: enBold)
+echo b notin a
+]#

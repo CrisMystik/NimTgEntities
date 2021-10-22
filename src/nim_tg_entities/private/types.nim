@@ -8,15 +8,8 @@ type
   Entity* = object
     offset*: int
     length*: int
-    case type*: EntityType
-    of enPre:
-      language*: string
-    of enTextUrl:
-      url*: string
-    of enMentionName:
-      userId*: int64
-    else:
-      discard
+    kind*: EntityType
+    extra*: string
   
   ParseMode* = enum
     pmMarkdown, pmHtml

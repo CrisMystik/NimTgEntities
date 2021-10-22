@@ -38,18 +38,7 @@ template escape*(s: string, pm: ParseMode) =
   if escapeSyntax.hasKey(pm):
     if escapeSyntax[pm].hasKey(s):
       escapeSyntax[pm][s]
-    else:
-      s
+    else: s
 
 template toParseSyntax*(e: Entity, closing: bool, pm: ParseMode) =
-  case e.type
-  of enPre:
-    let extra = e.language
-  of enTextUrl:
-    let extra = e.url
-  of enMentionName:
-    let extra = e.user_id
-  else:
-    let extra = ""
-  
-  formatSyntax[pm][e.type] % extra
+  formatSyntax[pm][e.kind][int(closing)] % e.extra
