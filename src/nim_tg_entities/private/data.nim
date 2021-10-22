@@ -34,11 +34,21 @@ const escapeSyntax = {
   }.toTable
 }.toTable
 
-template escape*(s: string, pm: ParseMode) =
+template escape*(s: string, pm: ParseMode): string =
+  ## Some characters may have a special meaning
+  ## in the parse mode used; this template will
+  ## replace these characters with safe variants
+  var result: string
   if escapeSyntax.hasKey(pm):
     if escapeSyntax[pm].hasKey(s):
-      escapeSyntax[pm][s]
-    else: s
+      result = escapeSyntax[pm][s]
+    else:
+      result = s
+  result
 
-template toParseSyntax*(e: Entity, closing: bool, pm: ParseMode) =
+template toParseSyntax*(e: Entity, closing: bool, pm: ParseMode): string =
+  ## Converts the given entity (`e`) in the
+  ## representation of given parse mode (`pm`)
+  ## `closing` should be true
+  ## if this is entity's ending
   formatSyntax[pm][e.kind][int(closing)] % e.extra

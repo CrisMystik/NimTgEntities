@@ -6,10 +6,10 @@ type
     enMentionName, enUnderline, enStrike, enBlockquote
   
   Entity* = object
-    offset*: int
-    length*: int
-    kind*: EntityType
-    extra*: string
+    offset*: int ## Starting character of the entity
+    length*: int ## Number of characters to which it applies
+    kind*: EntityType ## Actual type of this entity
+    extra*: string ## Needed for enPre, enTextUrl and enMentionName
   
   ParseMode* = enum
     pmMarkdown, pmHtml
