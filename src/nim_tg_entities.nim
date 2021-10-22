@@ -4,7 +4,8 @@ import nim_tg_entities / private / data
 import nim_tg_entities / private / types
 
 proc parseFormatting*(text: string, pm: ParseMode): seq[Entity] =
-  discard
+  ## Converts given `text` in a list of entities,
+  ## assuming it uses given parse mode (`pm`)
 
 proc parseEntities*(text: string, entities: openArray[Entity], pm: ParseMode): string =
   ## Takes `text` and `entities`, and returns input text with
