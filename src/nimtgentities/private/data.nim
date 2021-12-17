@@ -62,7 +62,10 @@ template escape*(s: string, pm: ParseMode): string =
       result = s
   result
 
-template toParseSyntax*(e: Entity, closing: bool, pm: ParseMode): string =
+template toEntities*() =
+  discard
+
+template toFormatting*(e: Entity, closing: bool, pm: ParseMode): string =
   ## Converts the given entity (`e`) in the
   ## representation of given parse mode (`pm`)
   ## `closing` should be true

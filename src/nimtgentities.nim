@@ -16,8 +16,8 @@
 
 import std / strutils
 import std / unicode
-import nim_tg_entities / private / data
-import nim_tg_entities / private / types
+import nimtgentities / private / data
+import nimtgentities / private / types
 
 proc parseFormatting*(text: string, pm: ParseMode): seq[Entity] =
   ## Converts given `text` in a list of entities,
@@ -41,12 +41,12 @@ proc parseEntities*(text: string, entities: openArray[Entity], pm: ParseMode): s
     # First, close previous entities
     for i, e in open:
       if e notin c:
-        result.add(toParseSyntax(e, true, pm))
+        result.add(toFormatting(e, true, pm))
         open.del(i)
     # Next, open new entities
     for e in c:
       if e notin open:
-        result.add(toParseSyntax(e, false, pm))
+        result.add(toFormatting(e, false, pm))
         open.add(e)
     # Allowing escape is literally
     # the point of this shit
@@ -55,10 +55,10 @@ proc parseEntities*(text: string, entities: openArray[Entity], pm: ParseMode): s
   # Let's not trust the user/Telegram's backend
   # and check for entities still not closed
   for e in open:
-    result.add(toParseSyntax(e, true, pm))
+    result.add(toFormatting(e, true, pm))
 
 when defined(NimgramSupport):
-  include nim_tg_entities / ngsupport
+  include nim_tg_entities / private / ngsupport
 
 #region Test
 when isMainModule:
